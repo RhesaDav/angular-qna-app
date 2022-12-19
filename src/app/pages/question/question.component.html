@@ -1,0 +1,32 @@
+<div class="container my-5">
+  <div class="card p-3">
+    <h1>{{userData.name}} {{userData.difficult}} Score:{{score}}</h1>
+  </div>
+  <ng-container *ngIf="!isFalse">
+    <div class="alert alert-danger my-2" role="alert">
+      Wrong Answer. Your Score -10
+    </div>
+  </ng-container>
+  <div class="card my-2 p-3">
+    <form [formGroup]="questionForm" (submit)="submitAnswer()">
+      <div class="form-group" *ngFor="let item of dataQuestion">
+        <p>{{ item.question }}</p>
+        <div class="form-check" *ngFor="let item of item.incorrectAnswers">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="answer"
+            formControlName="answer"
+            id="exampleRadios1"
+            value="{{ item }}"
+          />
+          <label class="form-check-label" for="exampleRadios1">
+            {{ item }}
+          </label>
+          <!-- <button [value]="item" type="button" formControlName="answer" class="btn-primary btn">{{item}}</button> -->
+        </div>
+        <button [disabled]="questionForm.status === 'INVALID' " class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
